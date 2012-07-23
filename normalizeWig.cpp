@@ -12,13 +12,6 @@
 
 using namespace std;
 
-/* 
-	1. Takes an arbitrary # of wig files.
-	2. Look at wig files, starting from lowest position in each chr (across all files)
-	3. Take $width blocks and compare RPKM at that location.
-	4. Output those.
-*/
-
 void *read(void *ptr );
 
 
@@ -30,7 +23,9 @@ void *read( void *ptr) {
 
 int main(int argc, char* argv[]) {
 	if(argc != 3 ){
-		cerr << "Usage: normalizeWig 1.15 example1.wig => example1.normalized.wig" << endl;
+		cerr << "Purpose: To convert un-normalized wiggle files into normalized (to RPKM) wiggle files." << endl;
+		cerr << "Usage: normalizeWig 0.001203 example1.wig => example1.normalized.wig" << endl;
+		cerr << "The normalization factor should be calculated as 1,000,000/num_mapped_reads." << endl;
 		exit(1);
 	}
 	double	normalization = atof(argv[1]); // e.g. 1000
