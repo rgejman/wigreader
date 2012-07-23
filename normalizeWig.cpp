@@ -37,9 +37,7 @@ int main(int argc, char* argv[]) {
 	WigReader reader(argv[2]);
 	
 	ostringstream output_filename_ss;
-	string wig_prefix = file_prefix(basename(argv[2]));
-	string wig_postfix = file_postfix(basename(argv[2]));
-	output_filename_ss << enclosing_directory(argv[2]) << wig_prefix << ".normalized." << wig_postfix;
+	output_filename_ss << argv[2] << ".normalized.wig";
 	string output_file = output_filename_ss.str();
 	cout << "Output file: " << output_file << endl;
 	reader.Read();

@@ -74,7 +74,7 @@ void WigReader::ProcessLine(const string &line) {
 	if(line[0] == 'v'){
 		ProcessHeader(line);
 	}
-	else if(line[0] == '#'){ // comment line
+	else if(line[0] == '#') { // comment line
 
 	}
 	else if(!skip_until_next_header) {
