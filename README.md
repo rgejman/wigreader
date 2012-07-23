@@ -5,11 +5,11 @@ Some C programs for handling wiggle files.
 
 The ones I have spent the most time on, in terms of using and testing, are
 
-*WigReader:* Base class for reading wiggle files.
+**WigReader:** Base class for reading wiggle files.
 
-*normalizeWig:* Used to normalize wiggle files to RPKM.
+**normalizeWig:** Used to normalize wiggle files to RPKM.
 
-*geneProfile:* Used to output wiggle values along a length of genome (could be a gene or a promoter, or anything you can put into a bed file)
+**geneProfile:** Used to output wiggle values along a length of genome (could be a gene or a promoter, or anything you can put into a bed file)
 
 The other tools I have used at various times for my projects, but they have not been tested as rigorously. For example, edge-cases that I haven't tested for may fail. 
 
