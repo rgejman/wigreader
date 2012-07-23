@@ -11,7 +11,7 @@
 
 using namespace std;
 
-string profileOutputFile(string wig_file,string gene_file, string analysis_type="profile") {
+string profileOutputFile(string wig_file,string gene_file, string analysis_type) {
 	string output_filename = file_prefix(basename(wig_file));
 	string bed_prefix_name = bed_prefix(basename(gene_file));
 	output_filename.append(".");
