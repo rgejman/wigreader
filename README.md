@@ -4,11 +4,19 @@ wigreader
 Some C programs for handling wiggle files.
 
 The ones I have spent the most time on, in terms of using and testing, are
-`normalizeWig` => Used to normalize wiggle files to RPKM.
-`geneProfile` => Used to output wiggle values along a length of genome (could be a gene or a promoter, or anything you can put into a bed file)
-`wigreader` => Base class for reading wiggle files
 
-These tools are really for bioinformaticians trying to extract data from wiggle files. You can create wiggle files from bam files using IGVTools, but you have to normalize the output using `normalizeWig` to get RPKMs.
+`wigreader`: Base class for reading wiggle files.
+
+`normalizeWig`: Used to normalize wiggle files to RPKM.
+
+`geneProfile`: Used to output wiggle values along a length of genome (could be a gene or a promoter, or anything you can put into a bed file)
+
+
+These tools are really only going to be useful for bioinformaticians trying to extract data from wiggle files. 
+
+Creating wiggle files
+=========
+If you have a BAM file, you can create a wiggle file using IGVtools (e.g. `igvtools count -e 100 -w 25 chip.bam "chip.cov.tdf, chip.cov.wig" genome.genome`). However, these wiggle files are not normalized. You have to normalize the output using `normalizeWig` to get wiggle files in RPKM.
 
 
 Installation
@@ -27,7 +35,7 @@ The file naming conventions (e.g. output files) are a bit strange and "dictatori
 
 The most important class here is wigreader. You can use wigreader in any of your own C/C++ programs
 
-Usage
+License
 =========
 You may use any of these scripts for commericial or non-commercial purposes, as you see fit. If you do use these tools and they result in a figure or data for a publication, please cite me or the tools in some way.
 
