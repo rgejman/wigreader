@@ -1,6 +1,8 @@
 wigreader
 =========
 
+Information on using WigReader in your own scripts can be found here: http://ron.gejman.com/blog/2012/07/27/wigreader-a-chip-seq-tool/
+
 Some C programs for handling wiggle files.
 
 The ones I have spent the most time on, in terms of using and testing, are
