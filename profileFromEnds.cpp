@@ -117,10 +117,10 @@ int main(int argc, char* argv[]) {
 	const string WIG_BASE    = "/media/bigdisk/sequencing/wig";
 	const string MODELS_BASE = "/home/tarakhovsky/genomics/useful_bed_files";
 
-	const string Eugene_WT_H3K9me2_file  	= WIG_BASE + "/Eugene/Eugene_WT_H3K9me2_CD4_3x.sorted.25.wig";
-	const string Eugene_KR_H3K9me2_file  	= WIG_BASE + "/Eugene/Eugene_KR_H3K9me2_CD4_3x.sorted.25.wig";
-	const string Terry_WT_H3K9me2_file  	= WIG_BASE + "/Terry/Terry_WT_H3K9me2_5x.sorted.25.wig";
-	const string Terry_KO_H3K9me2_file  	= WIG_BASE + "/Terry/Terry_KO_H3K9me2_5x.sorted.25.wig";
+	const string PersonA_WT_H3K9me2_file  	= WIG_BASE + "/PersonA/PersonA_WT_H3K9me2_CD4_3x.sorted.25.wig";
+	const string PersonA_KR_H3K9me2_file  	= WIG_BASE + "/PersonA/PersonA_KR_H3K9me2_CD4_3x.sorted.25.wig";
+	const string PersonB_WT_H3K9me2_file  	= WIG_BASE + "/PersonB/PersonB_WT_H3K9me2_5x.sorted.25.wig";
+	const string PersonB_KO_H3K9me2_file  	= WIG_BASE + "/PersonB/PersonB_KO_H3K9me2_5x.sorted.25.wig";
 	
 
 	const string EXONS_FILE              = MODELS_BASE + "/mm9.ensembl.exons.uniq_constitutive_or_longer.txt";
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
 	//const string GENES_FILE              = MODELS_BASE + "/mm9.ensembl_with_symbols.genes.prot_coding.bed";
 	const string GENES_FILE              = MODELS_BASE + "/mm9.ensembl_with_symbols.genes.prot_coding.bed";
 
-	const string HETEROCHROMATIC_GENES_FILE  = "/media/bigdisk/projects/eugene/heterochromatic_gene_mappings.txt";
+	const string HETEROCHROMATIC_GENES_FILE  = "/media/bigdisk/projects/PersonA/heterochromatic_gene_mappings.txt";
 	
 	cout << "Will parse HT Genes file" << endl;
 	
@@ -153,62 +153,62 @@ int main(int argc, char* argv[]) {
 	removeIfInGeneList(genes,heterochromatic_genes);
 	removeIfNotInGeneList(HC_genes,heterochromatic_genes);
 	
-	pthread_t eugene_wt_thread, eugene_kr_thread, terry_wt_thread, terry_ko_thread;
+	pthread_t PersonA_wt_thread, PersonA_kr_thread, PersonB_wt_thread, PersonB_ko_thread;
 	
-	WigReader eugene_wt_reader(Eugene_WT_H3K9me2_file.c_str());	
-	WigReader eugene_kr_reader(Eugene_KR_H3K9me2_file.c_str());
+	WigReader PersonA_wt_reader(PersonA_WT_H3K9me2_file.c_str());	
+	WigReader PersonA_kr_reader(PersonA_KR_H3K9me2_file.c_str());
 	
-	WigReader terry_wt_reader(Terry_WT_H3K9me2_file.c_str());	
-	WigReader terry_ko_reader(Terry_KO_H3K9me2_file.c_str());
-	
-	
-	pthread_create( &eugene_wt_thread, NULL, read, &eugene_wt_reader);
-	pthread_create( &eugene_kr_thread, NULL, read, &eugene_kr_reader);
-	pthread_create( &terry_wt_thread, NULL, read, &terry_wt_reader);
-	pthread_create( &terry_ko_thread, NULL, read, &terry_ko_reader);
-	
-	pthread_join(eugene_wt_thread, NULL);
-	pthread_join(eugene_kr_thread, NULL);
-	pthread_join(terry_wt_thread, NULL);
-	pthread_join(terry_ko_thread, NULL);
+	WigReader PersonB_wt_reader(PersonB_WT_H3K9me2_file.c_str());	
+	WigReader PersonB_ko_reader(PersonB_KO_H3K9me2_file.c_str());
 	
 	
+	pthread_create( &PersonA_wt_thread, NULL, read, &PersonA_wt_reader);
+	pthread_create( &PersonA_kr_thread, NULL, read, &PersonA_kr_reader);
+	pthread_create( &PersonB_wt_thread, NULL, read, &PersonB_wt_reader);
+	pthread_create( &PersonB_ko_thread, NULL, read, &PersonB_ko_reader);
 	
-	make_profile(exons, eugene_wt_reader, "Eugene_H3K9me2_WT_exons", true, 100, 10);
-	make_profile(exons, eugene_wt_reader, "Eugene_H3K9me2_WT_exons", false, 100, 10);
-	make_profile(exons, eugene_kr_reader, "Eugene_H3K9me2_KR_exons", true, 100, 10);
-	make_profile(exons, eugene_kr_reader, "Eugene_H3K9me2_KR_exons", false, 100, 10);
+	pthread_join(PersonA_wt_thread, NULL);
+	pthread_join(PersonA_kr_thread, NULL);
+	pthread_join(PersonB_wt_thread, NULL);
+	pthread_join(PersonB_ko_thread, NULL);
+	
+	
+	
+	make_profile(exons, PersonA_wt_reader, "PersonA_H3K9me2_WT_exons", true, 100, 10);
+	make_profile(exons, PersonA_wt_reader, "PersonA_H3K9me2_WT_exons", false, 100, 10);
+	make_profile(exons, PersonA_kr_reader, "PersonA_H3K9me2_KR_exons", true, 100, 10);
+	make_profile(exons, PersonA_kr_reader, "PersonA_H3K9me2_KR_exons", false, 100, 10);
 
-	make_profile(introns, eugene_wt_reader, "Eugene_H3K9me2_WT_introns", true, 500, 50);
-	make_profile(introns, eugene_wt_reader, "Eugene_H3K9me2_WT_introns", false, 500, 50);
-	make_profile(introns, eugene_kr_reader, "Eugene_H3K9me2_KR_introns", true, 500, 50);
-	make_profile(introns, eugene_kr_reader, "Eugene_H3K9me2_KR_introns", false, 500, 50);
+	make_profile(introns, PersonA_wt_reader, "PersonA_H3K9me2_WT_introns", true, 500, 50);
+	make_profile(introns, PersonA_wt_reader, "PersonA_H3K9me2_WT_introns", false, 500, 50);
+	make_profile(introns, PersonA_kr_reader, "PersonA_H3K9me2_KR_introns", true, 500, 50);
+	make_profile(introns, PersonA_kr_reader, "PersonA_H3K9me2_KR_introns", false, 500, 50);
 	
-	make_profile(genes, eugene_wt_reader, "Eugene_H3K9me2_WT_genes", true, 3000, 300);
-	make_profile(genes, eugene_wt_reader, "Eugene_H3K9me2_WT_genes", false, 3000, 300);
-	make_profile(genes, eugene_kr_reader, "Eugene_H3K9me2_KR_genes", true, 3000, 300);
-	make_profile(genes, eugene_kr_reader, "Eugene_H3K9me2_KR_genes", false, 3000, 300);
+	make_profile(genes, PersonA_wt_reader, "PersonA_H3K9me2_WT_genes", true, 3000, 300);
+	make_profile(genes, PersonA_wt_reader, "PersonA_H3K9me2_WT_genes", false, 3000, 300);
+	make_profile(genes, PersonA_kr_reader, "PersonA_H3K9me2_KR_genes", true, 3000, 300);
+	make_profile(genes, PersonA_kr_reader, "PersonA_H3K9me2_KR_genes", false, 3000, 300);
 	
-	make_profile(HC_genes, eugene_wt_reader, "Eugene_H3K9me2_WT_HC_genes", true, 3000, 300);
-	make_profile(HC_genes, eugene_wt_reader, "Eugene_H3K9me2_WT_HC_genes", false, 3000, 300);
-	make_profile(HC_genes, eugene_kr_reader, "Eugene_H3K9me2_KR_HC_genes", true, 3000, 300);
-	make_profile(HC_genes, eugene_kr_reader, "Eugene_H3K9me2_KR_HC_genes", false, 3000, 300);
+	make_profile(HC_genes, PersonA_wt_reader, "PersonA_H3K9me2_WT_HC_genes", true, 3000, 300);
+	make_profile(HC_genes, PersonA_wt_reader, "PersonA_H3K9me2_WT_HC_genes", false, 3000, 300);
+	make_profile(HC_genes, PersonA_kr_reader, "PersonA_H3K9me2_KR_HC_genes", true, 3000, 300);
+	make_profile(HC_genes, PersonA_kr_reader, "PersonA_H3K9me2_KR_HC_genes", false, 3000, 300);
 	
 	
-	make_profile(exons, terry_wt_reader, "Terry_H3K9me2_WT_exons", true, 100, 10);
-	make_profile(exons, terry_wt_reader, "Terry_H3K9me2_WT_exons", false, 100, 10);
-	make_profile(exons, terry_ko_reader, "Terry_H3K9me2_KO_exons", true, 100, 10);
-	make_profile(exons, terry_ko_reader, "Terry_H3K9me2_KO_exons", false, 100, 10);
+	make_profile(exons, PersonB_wt_reader, "PersonB_H3K9me2_WT_exons", true, 100, 10);
+	make_profile(exons, PersonB_wt_reader, "PersonB_H3K9me2_WT_exons", false, 100, 10);
+	make_profile(exons, PersonB_ko_reader, "PersonB_H3K9me2_KO_exons", true, 100, 10);
+	make_profile(exons, PersonB_ko_reader, "PersonB_H3K9me2_KO_exons", false, 100, 10);
 
-	make_profile(introns, terry_wt_reader, "Terry_H3K9me2_WT_introns", true, 500, 50);
-	make_profile(introns, terry_wt_reader, "Terry_H3K9me2_WT_introns", false, 500, 50);
-	make_profile(introns, terry_ko_reader, "Terry_H3K9me2_KO_introns", true, 500, 50);
-	make_profile(introns, terry_ko_reader, "Terry_H3K9me2_KO_introns", false, 500, 50);
+	make_profile(introns, PersonB_wt_reader, "PersonB_H3K9me2_WT_introns", true, 500, 50);
+	make_profile(introns, PersonB_wt_reader, "PersonB_H3K9me2_WT_introns", false, 500, 50);
+	make_profile(introns, PersonB_ko_reader, "PersonB_H3K9me2_KO_introns", true, 500, 50);
+	make_profile(introns, PersonB_ko_reader, "PersonB_H3K9me2_KO_introns", false, 500, 50);
 	
-	make_profile(genes, terry_wt_reader, "Terry_H3K9me2_WT_genes", true, 3000, 300);
-	make_profile(genes, terry_wt_reader, "Terry_H3K9me2_WT_genes", false, 3000, 300);
-	make_profile(genes, terry_ko_reader, "Terry_H3K9me2_KO_genes", true, 3000, 300);
-	make_profile(genes, terry_ko_reader, "Terry_H3K9me2_KO_genes", false, 3000, 300);
+	make_profile(genes, PersonB_wt_reader, "PersonB_H3K9me2_WT_genes", true, 3000, 300);
+	make_profile(genes, PersonB_wt_reader, "PersonB_H3K9me2_WT_genes", false, 3000, 300);
+	make_profile(genes, PersonB_ko_reader, "PersonB_H3K9me2_KO_genes", true, 3000, 300);
+	make_profile(genes, PersonB_ko_reader, "PersonB_H3K9me2_KO_genes", false, 3000, 300);
 	
 	
 	return 0;
