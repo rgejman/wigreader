@@ -1,13 +1,13 @@
 all: FCWig wigToBed geneProfile profileFromEnds genomicColocalization subtractWig promoterColocalization normalizeWig intergenicProfile
 
 FCWig: wigreader.o FCWig.o functions.o
-	g++ -lpthread -o bin/FCWig wigreader.o FCWig.o functions.o
+	g++ -o bin/FCWig wigreader.o FCWig.o functions.o -lpthread 
 	
 FCWig.o: FCWig.cpp wigreader.h functions.h
 	g++ -c FCWig.cpp
 
 subtractWig: wigreader.o subtractWig.o functions.o
-	g++ -lpthread -o bin/subtractWig wigreader.o subtractWig.o functions.o
+	g++ -o bin/subtractWig wigreader.o subtractWig.o functions.o -lpthread 
 	
 	
 subtractWig.o: subtractWig.cpp wigreader.h functions.h
@@ -36,13 +36,13 @@ normalizeWig.o: normalizeWig.cpp wigreader.h functions.h
 	g++ -c normalizeWig.cpp
 
 promoterColocalization: wigreader.o promoterColocalization.o functions.o
-	g++ -lpthread -o bin/promoterColocalization wigreader.o promoterColocalization.o functions.o
+	g++ -o bin/promoterColocalization wigreader.o promoterColocalization.o functions.o -lpthread 
 	
 promoterColocalization.o: promoterColocalization.cpp wigreader.h functions.h
 	g++ -c promoterColocalization.cpp
 
 genomicColocalization: wigreader.o genomicColocalization.o functions.o
-	g++ -lpthread -o bin/genomicColocalization wigreader.o genomicColocalization.o functions.o
+	g++ -o bin/genomicColocalization wigreader.o genomicColocalization.o functions.o -lpthread 
 	
 genomicColocalization.o: genomicColocalization.cpp wigreader.h functions.h
 	g++ -c genomicColocalization.cpp
@@ -54,7 +54,7 @@ geneProfile.o: geneProfile.cpp wigreader.h functions.h
 	g++ -c geneProfile.cpp
 	
 profileFromEnds: wigreader.o profileFromEnds.o functions.o
-	g++ -lpthread -o bin/profileFromEnds wigreader.o profileFromEnds.o functions.o
+	g++ -o bin/profileFromEnds wigreader.o profileFromEnds.o functions.o -lpthread 
 	
 profileFromEnds.o: profileFromEnds.cpp wigreader.h functions.h
 	g++ -c profileFromEnds.cpp
